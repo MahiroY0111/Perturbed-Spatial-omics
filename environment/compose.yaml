@@ -1,0 +1,46 @@
+name: perturbed-spatial-omics
+
+# The repository is mounted at /workspace in every container. Downloads go to data/, all outputs to results/.
+x-workspace: &workspace
+  volumes:
+    - ..:/workspace
+  working_dir: /workspace
+  environment:
+    PYTHONPATH: /workspace/src
+
+services:
+  py:                      # method and evaluation, CPU (Python 3.10.16, PyTorch 1.11.0)
+    <<: *workspace
+    image: perturbed-spatial-omics:py310-torch1.11-cpu
+    build:
+      context: .
+      args: {UID: "${HOST_UID:-1000}", GID: "${HOST_GID:-1000}"}
+    command: bash
+  pygpu:                   # optional: same packages with PyTorch 2.7.1 for CUDA 12.8 (NVIDIA GPU)
+    <<: *workspace
+    image: perturbed-spatial-omics:py310-torch2.7-cu128
+    build:
+      context: .
+      dockerfile: Dockerfile.gpu
+      args: {UID: "${HOST_UID:-1000}", GID: "${HOST_GID:-1000}"}
+    profiles: ["gpu"]
+    deploy: {resources: {reservations: {devices: [{driver: nvidia, count: all, capabilities: [gpu]}]}}}
+    command: bash
+  simo:                    # SIMO 1.0.0 (cell-to-spot mapping of the comparison method)
+    <<: *workspace
+    image: perturbed-spatial-omics:simo1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile.simo
+      args: {UID: "${HOST_UID:-1000}", GID: "${HOST_GID:-1000}"}
+    profiles: ["simo"]
+    command: bash
+  r:                       # R 4.4 / Bioconductor 3.20 / Splatter 1.30.0 (simulation pool)
+    <<: *workspace
+    image: perturbed-spatial-omics:r-bioc3.20-splatter1.30
+    build:
+      context: .
+      dockerfile: Dockerfile.r
+    profiles: ["r"]
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    command: bash

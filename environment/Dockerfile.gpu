@@ -1,0 +1,34 @@
+# Same package versions as Dockerfile, with PyTorch 2.7.1 built for CUDA 12.8 (optional; needs an NVIDIA GPU).
+# Results differ slightly from the CPU build because of floating-point differences.
+FROM python:3.10.16-slim-bookworm
+
+ARG UID=1000
+ARG GID=1000
+ARG PANDAS_VERSION=2.3.3
+ARG SCIPY_VERSION=1.15.3
+
+ENV PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PYTHONUNBUFFERED=1
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends build-essential git tini procps \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install torch==2.7.1+cu128 --extra-index-url https://download.pytorch.org/whl/cu128 \
+ && pip install -r /tmp/requirements.txt "pandas==${PANDAS_VERSION}" "scipy==${SCIPY_VERSION}" \
+ && pip check
+
+RUN groupadd -g ${GID} dev \
+ && useradd -m -u ${UID} -g ${GID} -s /bin/bash dev \
+ && mkdir -p /workspace && chown dev:dev /workspace
+USER dev
+ENV HOME=/home/dev \
+    NUMBA_CACHE_DIR=/tmp/numba_cache \
+    MPLCONFIGDIR=/tmp/mplconfig \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=/workspace/src
+WORKDIR /workspace
+ENTRYPOINT ["tini", "--"]
+CMD ["bash"]

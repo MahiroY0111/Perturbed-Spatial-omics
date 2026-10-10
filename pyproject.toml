@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "perturbed-spatial-omics"
+version = "1.0.0"
+description = "Perturbation responses in spatial transcriptomics by optimal transport map transfer"
+readme = "README.md"
+requires-python = ">=3.10"
+# Versions used for the reported results: environment/requirements.txt and environment/Dockerfile.
+dependencies = [
+    "torch>=1.11",
+    "numpy",
+    "scipy",
+    "pandas",
+    "anndata",
+    "scanpy",
+    "scikit-learn",
+    "matplotlib",
+    "tqdm",
+    "dotmap",
+    "ml-collections",
+    "absl-py",
+    "PyYAML",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["perturbed_spatial_omics*", "cellot*"]

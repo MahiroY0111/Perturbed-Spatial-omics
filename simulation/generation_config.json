@@ -1,0 +1,107 @@
+{
+  "schema_version": "M2-simulation-v2.0",
+  "data_seed": 1,
+  "dimensions": {
+    "n_genes": 8000,
+    "splatter_pool_cells": 50000,
+    "n_ctrl_cells": 20000,
+    "n_stim_cells": 20000,
+    "n_spots": 2500,
+    "cells_per_spot": 8,
+    "n_groups": 9
+  },
+  "seeds": {
+    "seed_splatter": 1101,
+    "seed_split": 1201,
+    "seed_spatial": 1301,
+    "seed_perturb_gene": 1401,
+    "seed_perturb_cell": 1501,
+    "seed_response": 1601,
+    "seed_modality": 1701
+  },
+  "splatter": {
+    "method": "groups",
+    "sparsify": true,
+    "batch_fac_loc": 0.1,
+    "batch_fac_scale": 0.1,
+    "batch_rm_effect": false,
+    "mean_shape": 0.6,
+    "mean_rate": 0.3,
+    "lib_loc": 11.0,
+    "lib_scale": 0.2,
+    "lib_norm": false,
+    "out_prob": 0.05,
+    "out_fac_loc": 4.0,
+    "out_fac_scale": 0.5,
+    "group_prob": [
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111
+    ],
+    "de_prob": 0.1,
+    "de_down_prob": 0.5,
+    "de_fac_loc": 0.1,
+    "de_fac_scale": 0.4,
+    "bcv_common": 0.1,
+    "bcv_df": 60.0,
+    "dropout_type": "none",
+    "dropout_mid": 0.0,
+    "dropout_shape": -1.0,
+    "path_from": 0.0,
+    "path_n_steps": 100,
+    "path_skew": 0.5,
+    "path_nonlinear_prob": 0.1,
+    "path_sigma_fac": 0.8
+  },
+  "spatial": {
+    "grid_rows": 50,
+    "grid_cols": 50,
+    "spot_spacing": 1.0,
+    "shuffle_coordinate_assignment": true,
+    "rbf_sigma_gen": 6.0,
+    "alpha_mix": 0.03,
+    "remaining_count_reweight": true
+  },
+  "perturbation": {
+    "gene_fraction": 0.1,
+    "n_perturbed_genes": 800,
+    "up_fraction": 0.5,
+    "n_up_genes": 400,
+    "n_down_genes": 400,
+    "abs_log2fc_mean": 1.0,
+    "abs_log2fc_sd": 0.3,
+    "application": "scale_round",
+    "fraction_treated": 0.5,
+    "target_group": "Group1",
+    "heterogeneous_eta_sd": 0.3
+  },
+  "modality": {
+    "capture_efficiency_distribution": "Beta",
+    "capture_efficiency_beta_a": 8.0,
+    "capture_efficiency_beta_b": 2.0,
+    "sampling": "Binomial(latent_count, gene_capture_efficiency)",
+    "shared_efficiency_between_conditions": true
+  },
+  "scenarios": [
+    "legacy_all",
+    "legacy_fraction",
+    "legacy_group",
+    "unpaired_all",
+    "unpaired_fraction",
+    "unpaired_group",
+    "unpaired_group_heterogeneous",
+    "unpaired_group_modality"
+  ],
+  "storage": {
+    "raw_count_dtype": "uint32",
+    "h5ad_compression": "gzip",
+    "h5ad_compression_level": 4,
+    "normalized_outputs": false
+  }
+}

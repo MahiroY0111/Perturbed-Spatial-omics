@@ -1,0 +1,91 @@
+# Arguments of scripts/run_condition.sh, one run per line: the runs behind the tables of the paper.
+# Run base_runs.txt first; reuse_runs.txt reuses the autoencoder and CellOT of the base run of the same seed.
+# Data: scripts/generate_data.sh evaluation 21 ... 30 and scripts/generate_complex_data.sh 21 ... 30.
+capture 21 complex orig
+capture 22 complex orig
+capture 23 complex orig
+capture 24 complex orig
+capture 25 complex orig
+hetero 21
+hetero 22
+hetero 23
+hetero 24
+hetero 25
+hetero 26
+hetero 27
+hetero 28
+hetero 29
+hetero 30
+capture 21 main none
+capture 22 main none
+capture 23 main none
+capture 24 main none
+capture 25 main none
+capture 26 main none
+capture 27 main none
+capture 28 main none
+capture 29 main none
+capture 30 main none
+refshift 21 0.1
+refshift 22 0.1
+refshift 23 0.1
+refshift 24 0.1
+refshift 25 0.1
+refshift 26 0.1
+refshift 27 0.1
+refshift 28 0.1
+refshift 29 0.1
+refshift 30 0.1
+refshift 21 0.2
+refshift 22 0.2
+refshift 23 0.2
+refshift 24 0.2
+refshift 25 0.2
+refshift 26 0.2
+refshift 27 0.2
+refshift 28 0.2
+refshift 29 0.2
+refshift 30 0.2
+refshift 21 0.5
+refshift 22 0.5
+refshift 23 0.5
+refshift 24 0.5
+refshift 25 0.5
+refshift 26 0.5
+refshift 27 0.5
+refshift 28 0.5
+refshift 29 0.5
+refshift 30 0.5
+refshift 21 1.0
+refshift 22 1.0
+refshift 23 1.0
+refshift 24 1.0
+refshift 25 1.0
+refshift 26 1.0
+refshift 27 1.0
+refshift 28 1.0
+refshift 29 1.0
+refshift 30 1.0
+refctrl 21 0.2
+refctrl 22 0.2
+refctrl 23 0.2
+refctrl 24 0.2
+refctrl 25 0.2
+refctrl 26 0.2
+refctrl 27 0.2
+refctrl 28 0.2
+refctrl 21 1.0
+refctrl 22 1.0
+refctrl 23 1.0
+refctrl 24 1.0
+refctrl 25 1.0
+refctrl 26 1.0
+refctrl 27 1.0
+refctrl 28 1.0
+refctrl 29 1.0
+refctrl 30 1.0
+refsub 21 1.0
+refsub 22 1.0
+refsub 23 1.0
+refsub 24 1.0
+refsub 25 1.0

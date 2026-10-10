@@ -1,0 +1,21 @@
+{
+  "name": "standard settings of the method",
+  "description": "Loss weights of the spot model used for every reported run. pipeline/standard_runner.py installs them and pipeline/core.py checks that the code defaults agree; --override of pipeline/run_condition.py changes single weights (hyperparameter comparison, lambda_mix_gene = 1.0 on the public data).",
+  "lmix_mode": "frequency",
+  "loss_weights": {
+    "lambda_nb": 5.0,
+    "lambda_mix_gene": 0.2,
+    "lambda_ot": 20.0,
+    "lambda_pbg": 1.0,
+    "lambda_res": 0.2,
+    "lambda_gamma": 1.0,
+    "lambda_proto_sc": 5.0,
+    "lambda_pseudo_proto": 0.0,
+    "lambda_sp_gamma": 0.1
+  },
+  "random_seeds": {
+    "data": "data seed of the simulation (21-30 for the final evaluation, 11-13 for the hyperparameter comparison)",
+    "clustering_and_mapping": "--seed of pipeline/run_condition.py: PCA and Leiden clustering of the reference and the SIMO mapping",
+    "training": "1 for every run: initial weights and mini-batch order of the autoencoder, the spot model and CellOT"
+  }
+}
